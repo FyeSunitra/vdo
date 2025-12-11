@@ -243,25 +243,32 @@
                     </h1>
                     <div id="question-text">
                     </div>
-                    <div class="flex flex-col gap-4 sm:gap-5 items-center w-full max-w-3xl">
-                        <button id="answer-btn-0" class="btn-shadow-answer inline-flex items-center justify-center gap-1
-         px-3 py-1 text-xs border-2 
-         sm:px-5 sm:py-2 sm:text-sm sm:border-2
-         lg:px-8 lg:py-3 lg:text-lg lg:border-4
-         bg-[#337dae] text-white rounded-full border-white font-bold
-         w-full max-w-[280px] mx-auto
-         whitespace-nowrap transition-all duration-150
-         hover:bg-[#2a6991] hover:-translate-y-1" onclick="handleAnswer(0)">
+                    <div class="flex flex-col gap-3 sm:gap-4 items-center w-full">
+                        <button id="answer-btn-0" class="btn-shadow-answer answer-text-outline
+           inline-flex items-center justify-center text-center leading-snug
+           px-3 py-1.5 text-sm border-2
+           sm:px-4 sm:py-2 sm:text-base
+           md:px-6 md:py-2.5 md:text-lg
+           lg:px-8 lg:py-3 lg:text-2xl lg:border-4
+           bg-[#337dae] text-white rounded-full border-black font-bold
+           w-full max-w-[80vw]
+           sm:max-w-[500px]
+           lg:max-w-[650px]
+           transition-all duration-150 hover:bg-[#2a6991] hover:-translate-y-1" onclick="handleAnswer(0)">
                             ตัวเลือกที่ 1
                         </button>
-                        <button id="answer-btn-1" class="btn-shadow-answer inline-flex items-center justify-center gap-1
-         px-3 py-1 text-xs border-2 
-         sm:px-5 sm:py-2 sm:text-sm sm:border-2
-         lg:px-8 lg:py-3 lg:text-lg lg:border-4
-         bg-[#337dae] text-white rounded-full border-white font-bold
-         w-full max-w-[280px] mx-auto
-         whitespace-nowrap transition-all duration-150
-         hover:bg-[#2a6991] hover:-translate-y-1" onclick="handleAnswer(1)">
+
+                        <button id="answer-btn-1" class="btn-shadow-answer answer-text-outline
+           inline-flex items-center justify-center text-center leading-snug
+           px-3 py-1.5 text-sm border-2
+           text-[2.8vw] px-[2vw] py-[1vw] border-[1.5px]
+           md:px-6 md:py-2.5 md:text-lg
+           lg:px-8 lg:py-3 lg:text-2xl lg:border-4
+           bg-[#337dae] text-white rounded-full border-black font-bold
+           w-full max-w-[80vw]
+           sm:max-w-[400px]
+           lg:max-w-[650px]
+           transition-all duration-150 hover:bg-[#2a6991] hover:-translate-y-1" onclick="handleAnswer(1)">
                             ตัวเลือกที่ 2
                         </button>
                     </div>
@@ -351,7 +358,7 @@
         // ----- ข้อมูลวิดีโอ (8 คลิป) -----
         const videos = [
             {
-                src: 'flu.mov',
+                src: 'flu.mp4',
                 question: {
                     title: 'ทำไมต้องฉีดไข้หวัดใหญ่ทุกปี',
                     text: '',
