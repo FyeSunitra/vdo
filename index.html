@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>BOOST ภูมิ BOOST วัย - Interactive Video</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700;800&display=swap');
+
+        body {
+            font-family: 'Sarabun', system-ui, -apple-system, sans-serif;
+        }
+
+        .btn-shadow {
+            box-shadow: 0 6px 0 rgba(0, 0, 0, 0.35);
+        }
+
+        .btn-shadow:active {
+            box-shadow: 0 3px 0 rgba(0, 0, 0, 0.35);
+        }
+
+        .btn-shadow-big {
+            box-shadow: 0 8px 0 #26618a;
+        }
+
+        .btn-shadow-big:hover {
+            box-shadow: 0 10px 0 #214f70;
+        }
+
+        .btn-shadow-red-big {
+            box-shadow: 0 8px 0 #b71c1c;
+        }
+
+        .btn-shadow-red-big:hover {
+            box-shadow: 0 10px 0 #8e1111;
+        }
+
+        .btn-shadow-answer {
+            box-shadow: 0 6px 0 #000000;
+        }
+
+        .btn-shadow-answer:hover {
+            box-shadow: 0 8px 0 #000000;
+        }
+
+        .btn-shadow-ghost {
+            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.4);
+        }
+
+        .answer-text-outline {
+            text-shadow:
+                -1px -1px 0 #000,
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                1px 1px 0 #000;
+        }
+    </style>
+</head>
+
+<body class="w-full h-full bg-black overflow-hidden">
+    <div class="w-screen h-screen flex justify-center items-center bg-black">
+        <div id="stage" class="relative w-full max-w-[1364px] aspect-video max-h-screen bg-black overflow-hidden">
+
+            <!-- หน้าปก -->
+            <div id="screen-cover"
+                class="absolute inset-0 w-full h-full hidden flex-col justify-between p-4 sm:p-6 lg:p-10 bg-center bg-no-repeat bg-contain active"
+                style="background-image: url('bg-cover.jpg')">
+                <div class="flex-1"></div>
+                <div class="flex justify-end items-center w-full mt-2">
+                    <div class="flex gap-2 sm:gap-3">
+                        <button class="btn-shadow inline-flex items-center 
+                            justify-center gap-1 
+                            px-3 py-1 text-xs border-2 
+                            sm:px-5 sm:py-2 sm:text-sm sm:border-2
+                            lg:px-8 lg:py-3 lg:text-lg lg:border-4
+                            bg-black text-white border-2 sm:border-3 border-white 
+                            rounded-full font-bold 
+                            cursor-pointer whitespace-nowrap transition-all duration-150 
+                            hover:bg-gray-800 hover:-translate-y-0.5 hover:scale-105 
+                            active:translate-y-0.5 active:scale-98 w-full" onclick="showScreen('screen-explain')">
+                            <span>ถัดไป</span>
+                            <i class="fa-solid fa-angles-right text-xs sm:text-base"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- หน้าคำชี้แจง -->
+            <div id="screen-explain"
+                class="absolute inset-0 w-full h-full hidden flex-col justify-between p-4 sm:p-6 lg:p-10 bg-center bg-no-repeat bg-contain"
+                style="background-image: url('bg-explain.jpg')">
+                <div class="flex-1"></div>
+                <div class="flex justify-between items-center w-full mt-2 gap-2 sm:gap-3">
+                    <div class="flex gap-2 sm:gap-3">
+                        <button class="btn-shadow inline-flex items-center justify-center gap-1 mt-2 
+         px-3 py-1 text-xs border-2 
+         sm:px-5 sm:py-2 sm:text-sm sm:border-2
+         lg:px-8 lg:py-3 lg:text-lg lg:border-4
+         bg-red-600 text-white rounded-full border-white font-bold
+         w-full max-w-[280px] mx-auto
+         whitespace-nowrap transition-all duration-150
+         hover:bg-red-700 hover:-translate-y-0.5 hover:scale-105 
+                            active:translate-y-0.5 active:scale-98 w-full" onclick="showScreen('screen-cover')">
+                            <i class="fa fa-angles-left text-xs sm:text-base"></i>
+                            <span>ย้อนกลับ</span>
+                        </button>
+                    </div>
+                    <div class="flex gap-2 sm:gap-3">
+                        <button class="btn-shadow inline-flex items-center 
+                            justify-center gap-1 
+                            px-3 py-1 text-xs border-2 
+                            sm:px-5 sm:py-2 sm:text-sm sm:border-2
+                            lg:px-8 lg:py-3 lg:text-lg lg:border-4
+                            bg-black text-white border-2 sm:border-3 border-white 
+                            rounded-full font-bold 
+                            cursor-pointer whitespace-nowrap transition-all duration-150 
+                            hover:bg-gray-800 hover:-translate-y-0.5 hover:scale-105 
+                            active:translate-y-0.5 active:scale-98 w-full" onclick="showScreen('screen-guide')">
+                            <span>ถัดไป</span>
+                            <i class="fa-solid fa-angles-right text-xs sm:text-base"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- หน้าคู่มือการใช้งาน -->
+            <div id="screen-guide"
+                class="absolute inset-0 w-full h-full hidden flex-col justify-between p-4 sm:p-6 lg:p-10 bg-center bg-no-repeat bg-contain"
+                style="background-image: url('bg-guide.jpg')">
+                <div class="flex-1"></div>
+                <div class="flex justify-between items-center w-full mt-2 gap-2 sm:gap-3">
+                    <div class="flex gap-2 sm:gap-3">
+                        <button class="btn-shadow inline-flex items-center justify-center gap-1 mt-2 
+         px-3 py-1 text-xs border-2 
+         sm:px-5 sm:py-2 sm:text-sm sm:border-2
+         lg:px-8 lg:py-3 lg:text-lg lg:border-4
+         bg-red-600 text-white rounded-full border-white font-bold
+         w-full max-w-[280px] mx-auto
+         whitespace-nowrap transition-all duration-150
+         hover:bg-red-700 hover:-translate-y-1 w-full" onclick="showScreen('screen-explain')">
+                            <i class="fa fa-angles-left text-xs sm:text-base"></i>
+                            <span>ย้อนกลับ</span>
+                        </button>
+                    </div>
+                    <div class="flex gap-2 sm:gap-3">
+                        <button class="btn-shadow inline-flex items-center 
+                            justify-center gap-1 
+                            px-3 py-1 text-xs border-2 
+                            sm:px-5 sm:py-2 sm:text-sm sm:border-2
+                            lg:px-8 lg:py-3 lg:text-lg lg:border-4
+                            bg-black text-white border-2 sm:border-3 border-white 
+                            rounded-full font-bold 
+                            cursor-pointer whitespace-nowrap transition-all duration-150 
+                            hover:bg-gray-800 hover:-translate-y-0.5 hover:scale-105 
+                            active:translate-y-0.5 active:scale-98 w-full" onclick="showScreen('screen-mode')">
+                            <span>ถัดไป</span>
+                            <i class="fa-solid fa-angles-right text-xs sm:text-base"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- หน้าโหมดการเล่น -->
+            <div id="screen-mode" class="absolute inset-0 w-full h-full hidden flex-col items-center text-center
+         p-[2vw] sm:p-6 lg:p-10 bg-center bg-no-repeat bg-contain"
+                style="background-image: url('bg-monitor-empty.jpg')">
+
+                <div class="flex-1 w-full flex flex-col items-center py-[3vw]">
+
+                    <!-- หัวข้อ ใช้ vw -->
+                    <h1 class="font-extrabold text-black text-center
+             text-[5vw] sm:text-3xl lg:text-5xl
+             mb-[3vw] sm:mb-6 lg:mb-8" style="text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8)">
+                        โหมดการเล่น
+                    </h1>
+
+                    <div class="flex flex-col items-center
+             gap-[2.5vw] sm:gap-4
+             w-full max-w-[80vw] sm:max-w-md">
+
+                        <!-- ปุ่มเริ่มต้น -->
+                        <button class="btn-shadow-big inline-flex items-center justify-center gap-1
+         px-3 py-1 text-xs border-2 
+         sm:px-5 sm:py-2 sm:text-sm sm:border-2
+         lg:px-8 lg:py-3 lg:text-lg lg:border-4
+         bg-[#337dae] text-white rounded-full border-white font-bold
+         w-full max-w-[280px] mx-auto
+         whitespace-nowrap transition-all duration-150
+         hover:bg-[#2a6991] hover:-translate-y-1" onclick="startInteractiveMode()">
+                            <span>เริ่มต้น</span>
+                            <i class="fa-solid fa-angles-right text-[10px] sm:text-sm lg:text-base"></i>
+                        </button>
+
+                        <!-- ปุ่มรับชมวิดีโอทั้งหมด -->
+                        <button class="btn-shadow-big inline-flex items-center justify-center gap-1
+         px-3 py-1 text-xs border-2 
+         sm:px-5 sm:py-2 sm:text-sm sm:border-2
+         lg:px-8 lg:py-3 lg:text-lg lg:border-4
+         bg-[#337dae] text-white rounded-full border-white font-bold
+         w-full max-w-[280px] mx-auto
+         whitespace-nowrap transition-all duration-150
+         hover:bg-[#2a6991] hover:-translate-y-1" onclick="startWatchAllMode()">
+                            <span>รับชมวิดีโอทั้งหมด</span>
+                            <i class="fa-solid fa-angles-right text-[3vw] sm:text-base"></i>
+                        </button>
+
+                        <!-- ปุ่มย้อนกลับ -->
+                        <button class="btn-shadow-red-big inline-flex items-center justify-center gap-1
+         px-3 py-1 text-xs border-2 
+         sm:px-5 sm:py-2 sm:text-sm sm:border-2
+         lg:px-8 lg:py-3 lg:text-lg lg:border-4
+         bg-red-600 text-white rounded-full border-white font-bold
+         w-full max-w-[280px] mx-auto
+         whitespace-nowrap transition-all duration-150
+         hover:bg-red-700 hover:-translate-y-1 w-full" onclick="showScreen('screen-guide')">
+                            <i class="fa fa-angles-left text-[3vw] sm:text-base"></i>
+                            <span>ย้อนกลับ</span>
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- หน้าวิดีโอ -->
+            <div id="screen-video" class="absolute inset-0 w-full h-full hidden bg-black p-0">
+                <video id="video-player" class="w-full h-full object-contain bg-black" playsinline controls
+                    controlslist="nodownload noplaybackrate noremoteplayback"></video>
+            </div>
+
+            <!-- หน้าคำถาม -->
+            <div id="screen-question"
+                class="absolute inset-0 w-full h-full hidden flex-col items-center text-center p-4 sm:p-6 lg:p-10 bg-center bg-no-repeat bg-contain"
+                style="background-image: url('bg-monitor-empty.jpg')">
+                <div class="flex-1 w-full flex flex-col items-center justify-start px-4 pt-12 sm:pt-16 lg:pt-20 pb-4">
+                    <h1 id="question-title" class="font-extrabold text-black text-center
+             text-[5vw] sm:text-3xl lg:text-5xl
+             mb-[3vw] sm:mb-6 lg:mb-8" style="text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8)">
+                        คำถาม
+                    </h1>
+                    <div id="question-text">
+                    </div>
+                    <div class="flex flex-col gap-4 sm:gap-5 items-center w-full max-w-3xl">
+                        <button id="answer-btn-0" class="btn-shadow-answer inline-flex items-center justify-center gap-1
+         px-3 py-1 text-xs border-2 
+         sm:px-5 sm:py-2 sm:text-sm sm:border-2
+         lg:px-8 lg:py-3 lg:text-lg lg:border-4
+         bg-[#337dae] text-white rounded-full border-white font-bold
+         w-full max-w-[280px] mx-auto
+         whitespace-nowrap transition-all duration-150
+         hover:bg-[#2a6991] hover:-translate-y-1" onclick="handleAnswer(0)">
+                            ตัวเลือกที่ 1
+                        </button>
+                        <button id="answer-btn-1" class="btn-shadow-answer inline-flex items-center justify-center gap-1
+         px-3 py-1 text-xs border-2 
+         sm:px-5 sm:py-2 sm:text-sm sm:border-2
+         lg:px-8 lg:py-3 lg:text-lg lg:border-4
+         bg-[#337dae] text-white rounded-full border-white font-bold
+         w-full max-w-[280px] mx-auto
+         whitespace-nowrap transition-all duration-150
+         hover:bg-[#2a6991] hover:-translate-y-1" onclick="handleAnswer(1)">
+                            ตัวเลือกที่ 2
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- หน้าตอบถูก -->
+            <div id="screen-correct"
+                class="absolute inset-0 w-full h-full hidden flex-col items-center text-center justify-between p-4 sm:p-6 lg:p-10 bg-center bg-no-repeat bg-contain"
+                style="background-image: url('bg-correct.jpg')">
+                <div class="flex-1"></div>
+                <div class="flex justify-end items-center w-full mt-2">
+                    <div class="flex gap-2 sm:gap-3">
+                        <button
+                            class="btn-shadow-big inline-flex items-center justify-center gap-1 sm:gap-2 px-6 sm:px-8 lg:px-12 py-2.5 sm:py-3 lg:py-3.5 bg-[#337dae] text-white rounded-full border-3 sm:border-4 border-white text-base sm:text-lg lg:text-xl font-bold cursor-pointer whitespace-nowrap transition-all duration-150 hover:bg-[#2a6991] hover:-translate-y-1"
+                            onclick="goToNextVideo()">
+                            <span>ดูคลิปถัดไป</span>
+                            <span class="text-sm sm:text-base lg:text-lg">➜</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- หน้าตอบผิด -->
+            <div id="screen-incorrect"
+                class="absolute inset-0 w-full h-full hidden flex-col items-center text-center justify-between p-4 sm:p-6 lg:p-10 bg-center bg-no-repeat bg-contain"
+                style="background-image: url('bg-incorrect.jpg')">
+                <div class="flex-1"></div>
+                <div class="flex justify-end items-center w-full mt-2">
+                    <div class="flex gap-2 sm:gap-3">
+                        <button
+                            class="btn-shadow-red-big inline-flex items-center justify-center gap-1 sm:gap-2 px-6 sm:px-8 lg:px-12 py-2.5 sm:py-3 lg:py-3.5 bg-red-600 text-white rounded-full border-3 sm:border-4 border-white text-base sm:text-lg lg:text-xl font-bold cursor-pointer whitespace-nowrap transition-all duration-150 hover:bg-red-700 hover:-translate-y-1"
+                            onclick="backToQuestion()">
+                            <span>&lt;&lt; ย้อนกลับไปตอบอีกครั้ง</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- จบทุกคลิป -->
+            <div id="screen-finish"
+                class="absolute inset-0 w-full h-full hidden flex-col items-center text-center p-4 sm:p-6 lg:p-10 bg-center bg-no-repeat bg-contain"
+                style="background-image: url('bg-monitor-empty.jpg')">
+                <div class="flex-1 w-full flex flex-col items-center justify-center px-4 py-8 sm:py-10 text-center">
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-black mb-4 sm:mb-6 text-center"
+                        style="text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8)">
+                        จบการรับชม
+                    </h1>
+                    <p class="text-xl sm:text-2xl lg:text-3xl font-semibold text-black text-center max-w-[90%] lg:max-w-[80%] mx-auto"
+                        style="text-shadow: 0 2px 4px rgba(255, 255, 255, 0.9)">
+                        คุณรับชมสื่อครบทุกคลิปแล้ว ขอบคุณที่ร่วมเรียนรู้ไปด้วยกันครับ
+                    </p>
+                </div>
+                <div class="flex justify-end items-center w-full mt-2">
+                    <div class="flex gap-2 sm:gap-3">
+                        <button
+                            class="btn-shadow-big inline-flex items-center justify-center gap-1 sm:gap-2 px-6 sm:px-8 lg:px-12 py-2.5 sm:py-3 lg:py-3.5 bg-[#337dae] text-white rounded-full border-3 sm:border-4 border-white text-base sm:text-lg lg:text-xl font-bold cursor-pointer whitespace-nowrap transition-all duration-150 hover:bg-[#2a6991] hover:-translate-y-1"
+                            onclick="showScreen('screen-mode')">
+                            กลับไปหน้าโหมดการเล่น
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const screens = document.querySelectorAll('[id^="screen-"]');
+
+        function showScreen(id) {
+            screens.forEach((s) => {
+                if (s.id === id) {
+                    s.classList.remove('hidden');
+                    s.classList.add('flex');
+                } else {
+                    s.classList.add('hidden');
+                    s.classList.remove('flex');
+                }
+            });
+        }
+
+        // แสดงหน้าแรก
+        showScreen('screen-cover');
+
+        // ----- ข้อมูลวิดีโอ (8 คลิป) -----
+        const videos = [
+            {
+                src: 'flu.mov',
+                question: {
+                    title: 'ทำไมต้องฉีดไข้หวัดใหญ่ทุกปี',
+                    text: '',
+                    options: [
+                        { label: 'เพราะไวรัสไข้หวัดใหญ่มีการเปลี่ยนสายพันธุ์ทุกปี', correct: true },
+                        { label: 'เพราะวัคซีนมีอายุใช้งานแค่ 1 ปี', correct: false }
+                    ]
+                }
+            },
+            {
+                src: 'tetanus.mov',
+                question: {
+                    title: 'วัคซีนบาดทะยัก',
+                    text: 'การฉีดวัคซีนบาดทะยักควรฉีดให้ครบกี่เข็ม',
+                    options: [
+                        { label: '3 เข็ม', correct: true },
+                        { label: '5 เข็ม', correct: false }
+                    ]
+                }
+            },
+            {
+                src: 'hepb.mov',
+                question: {
+                    title: 'วัคซีน HepB',
+                    text: 'ผู้ที่ฉีดวัคซีนครบ 3 เข็ม 2 ชุด จำเป็นต้องฉีดวัคซีนไหม',
+                    options: [
+                        { label: 'ต้องฉีดกระตุ้นอีก 1 เข็ม', correct: false },
+                        { label: 'ไม่จำเป็นต้องฉีด', correct: true }
+                    ]
+                }
+            },
+            { src: 'hepa.mov' },
+            { src: 'hpv.mov' },
+            { src: 'varicella.mp4' },
+            {
+                src: 'rsv.mov',
+                question: {
+                    title: 'วัคซีน RSV',
+                    text: 'ผู้สูงอายุควรได้รับวัคซีน RSV เพื่อป้องกันภาวะแทรกซ้อนใด',
+                    options: [
+                        { label: 'ปอดบวมและหอบเหนื่อยรุนแรง', correct: true },
+                        { label: 'อาการไอจากภูมิแพ้', correct: false }
+                    ]
+                }
+            },
+            {
+                src: 'dengue.mov',
+                question: {
+                    title: 'วัคซีนไข้เลือดออก',
+                    text: 'ยุงชนิดใดเป็นพาหะของโรคไข้เลือดออก',
+                    options: [
+                        { label: 'ยุงลาย', correct: true },
+                        { label: 'ยุงก้นปล่อง', correct: false }
+                    ]
+                }
+            }
+        ];
+
+        let currentVideoIndex = 0;
+        let currentQuestion = null;
+        let mode = 'interactive';
+
+        const videoEl = document.getElementById('video-player');
+        const questionTitleEl = document.getElementById('question-title');
+        const questionTextEl = document.getElementById('question-text');
+        const answerBtn0 = document.getElementById('answer-btn-0');
+        const answerBtn1 = document.getElementById('answer-btn-1');
+
+        function stopVideo() {
+            if (!videoEl) return;
+            videoEl.pause();
+            videoEl.removeAttribute('src');
+            videoEl.load();
+        }
+
+        function loadVideo(index) {
+            const v = videos[index];
+            if (!v) return;
+
+            currentQuestion = v.question || null;
+            videoEl.src = v.src;
+            videoEl.currentTime = 0;
+
+            const playPromise = videoEl.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(() => { });
+            }
+        }
+
+        function startInteractiveMode() {
+            mode = 'interactive';
+            currentVideoIndex = 0;
+            loadVideo(currentVideoIndex);
+            showScreen('screen-video');
+        }
+
+        function startWatchAllMode() {
+            mode = 'watchAll';
+            currentVideoIndex = 0;
+            loadVideo(currentVideoIndex);
+            showScreen('screen-video');
+        }
+
+        videoEl.addEventListener('ended', () => {
+            if (mode === 'interactive') {
+                if (currentQuestion) {
+                    questionTitleEl.textContent = currentQuestion.title || 'คำถาม';
+                    questionTextEl.textContent = currentQuestion.text || '';
+                    if (currentQuestion.options && currentQuestion.options.length >= 2) {
+                        answerBtn0.textContent = currentQuestion.options[0].label;
+                        answerBtn1.textContent = currentQuestion.options[1].label;
+                    }
+                    showScreen('screen-question');
+                } else {
+                    goToNextVideo();
+                }
+            } else {
+                if (currentVideoIndex < videos.length - 1) {
+                    currentVideoIndex++;
+                    loadVideo(currentVideoIndex);
+                } else {
+                    showScreen('screen-finish');
+                }
+            }
+        });
+
+        function handleAnswer(optionIndex) {
+            if (!currentQuestion || !currentQuestion.options) return;
+            const opt = currentQuestion.options[optionIndex];
+            if (!opt) return;
+
+            if (opt.correct) {
+                showScreen('screen-correct');
+            } else {
+                showScreen('screen-incorrect');
+            }
+        }
+
+        function goToNextVideo() {
+            if (currentVideoIndex < videos.length - 1) {
+                currentVideoIndex++;
+                loadVideo(currentVideoIndex);
+                showScreen('screen-video');
+            } else {
+                showScreen('screen-finish');
+            }
+        }
+
+        function backToQuestion() {
+            if (currentQuestion) {
+                questionTitleEl.textContent = currentQuestion.title || 'คำถาม';
+                questionTextEl.textContent = currentQuestion.text || '';
+                if (currentQuestion.options && currentQuestion.options.length >= 2) {
+                    answerBtn0.textContent = currentQuestion.options[0].label;
+                    answerBtn1.textContent = currentQuestion.options[1].label;
+                }
+            }
+            showScreen('screen-question');
+        }
+    </script>
+</body>
+
+</html>
